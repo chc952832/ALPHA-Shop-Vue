@@ -7,9 +7,9 @@
           <div class="product-detail">
             <span class="product-title">{{product.name}}</span>
             <div class="cart-btns">
-              <button class="cart-btn minus-btn"  :disabled="product.amount === 0" @click.stop.prevent="decreaseAmount(product)">-</button>
-              <span class="product-amount">{{product.amount}}</span>
-              <button class="cart-btn plus-btn" @click.stop.prevent="addAmount(product)">+</button>
+              <button class="cart-btn minus-btn"  :disabled="product.quantity === 0" @click.stop.prevent="decreaseQuantity(product)">-</button>
+              <span class="product-quantity">{{product.quantity}}</span>
+              <button class="cart-btn plus-btn" @click.stop.prevent="addQuantity(product)">+</button>
             </div>
             <span class="product-price">${{product.price}}</span>
           </div> 
@@ -17,7 +17,7 @@
       <div class="cart-detail">
         <div class="delivery-fee-wrapper">
           <span class="delivery-fee-title">運費</span>
-          <span class="delivery-fee">${{deliveryFee}}</span>
+          <span class="delivery-fee">{{deliveryFee | modifyDeliveryFeeDisplay}}</span>
         </div>
         <div class="total">
           <span class="total-title">小計</span>
@@ -37,14 +37,14 @@ const dummyData = {
     name: '破壞補丁修身牛仔褲',
     imgUrl: require('./../assets/image/product-img-1.png'),
     price: '3,999',
-    amount: 1
+    quantity: 1
   },
   {
     id: uuidv4(),
     name: '刷色直筒牛仔褲',
     imgUrl: require('./../assets/image/product-img-2.png'),
     price: '1,299',
-    amount: 1
+    quantity: 1
   }
  ]
 }
@@ -70,14 +70,14 @@ export default {
     fetchCartList() {
       this.cartProducts = dummyData.cartProducts
     },
-    addAmount(product) {
+    addQuantity(product) {
       product= {...product,
-        amount: product.amount += 1
+        quantity: product.quantity += 1
       }
     },
-    decreaseAmount(product) {
+    decreaseQuantity(product) {
       product= {...product,
-        amount: product.amount -= 1
+        quantity: product.quantity -= 1
       }
     },
   },
@@ -87,10 +87,15 @@ export default {
       this.cartProducts.forEach(product => {
         // 將逗號清除並轉換成數字
         const productPrice = Number(product.price.replace(',', ''))
-        totalPrice += productPrice * product.amount
+        totalPrice += productPrice * product.quantity
       });
       this.total = totalPrice + this.deliveryFee
       return this.total.toLocaleString()  // 每三位數加上逗號
+    }
+  },
+  filters: {
+    modifyDeliveryFeeDisplay(amount) {
+      return amount === 0 ? "免費" : '$500'
     }
   }
 }

@@ -1337,7 +1337,7 @@ nav .container .navbar-toggle-label .hamburger::after {
   margin-right: 0
 }
 
-.main-content .container .right .cart-wrapper .product-wrapper .product .product-detail .cart-btns .product-amount {
+.main-content .container .right .cart-wrapper .product-wrapper .product .product-detail .cart-btns .product-quantity {
   font-size: 14px;
   margin-right: 25px
 }
