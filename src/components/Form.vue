@@ -174,14 +174,14 @@
           @click.stop.prevent="previousStep"
           :class="{ 'v-hidden': stepNow === 1 }"
         >
-          ←　上一步
+          ←&nbsp;&nbsp;&nbsp;上一步
         </button>
         <button
           class="btn-next btn"
           @click.stop.prevent="nextStep"
           v-if="stepNow < 3"
         >
-          →　下一步
+          →&nbsp;&nbsp;&nbsp;下一步
         </button>
         <button class="btn-next btn" v-else>
           確認下單
@@ -219,9 +219,10 @@ export default {
   },
   created() {
     // 拿出localStorage的資料
-    this.formData= JSON.parse(localStorage.getItem(STORAGE_KEY) || {})
+    this.formData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {} 
   },
   methods: {
+
     // 下一步
     nextStep() {
       if (this.stepNow < 3) {

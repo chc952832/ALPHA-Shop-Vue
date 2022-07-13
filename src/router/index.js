@@ -12,11 +12,6 @@ const routes = [
     component: Main,
   },
   {
-    path: '/main',
-    name: 'Main',
-    component: Main,
-  },
-  {
     path: '*',
     name: 'not-found',
     component: NotFound,

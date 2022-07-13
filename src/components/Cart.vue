@@ -21,7 +21,7 @@
         </div>
         <div class="total">
           <span class="total-title">小計</span>
-          <span class="total-price">${{getTotal}}</span>
+          <span class="total-price">${{getTotal()}}</span>
         </div>
       </div>
     </div>
@@ -71,17 +71,15 @@ export default {
       this.cartProducts = dummyData.cartProducts
     },
     addQuantity(product) {
-      product= {...product,
+      return product= {...product,
         quantity: product.quantity += 1
       }
     },
     decreaseQuantity(product) {
-      product= {...product,
+      return product= {...product,
         quantity: product.quantity -= 1
       }
     },
-  },
-  computed: {
     getTotal() {
       let totalPrice = 0
       this.cartProducts.forEach(product => {
