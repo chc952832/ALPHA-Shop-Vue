@@ -218,8 +218,8 @@ export default {
     };
   },
   created() {
-    // 拿出localStorage的資料
-    this.formData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {} 
+    // 拿出localStorage的資料; 如果localStorage中沒有資料就拿取data中的初始默認值
+    this.formData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || this.formData
   },
   methods: {
 
