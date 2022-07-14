@@ -219,44 +219,53 @@ export default {
   },
   created() {
     // 拿出localStorage的資料; 如果localStorage中沒有資料就拿取data中的初始默認值
-    this.formData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || this.formData
+    this.formData =
+      JSON.parse(localStorage.getItem(STORAGE_KEY)) || this.formData;
+    const { id } = this.$route.params;
+    this.fetchForm(Number(id));
   },
   methods: {
-
+    fetchForm(formId) {
+      this.stepNow = formId;
+    },
     // 下一步
     nextStep() {
       if (this.stepNow < 3) {
-        this.stepNow += 1
+        this.stepNow += 1;
+        // 改變路徑
+        this.$router.push({ name: 'form', params: {  id : this.stepNow} });
       }
-      return
+      return;
     },
     // 上一步
     previousStep() {
       if (this.stepNow > 1) {
-        this.stepNow -= 1
+        this.stepNow -= 1;
+        // 使用了跟下一步按鈕不同的寫法作為練習, 達到的效果是一樣的
+        this.$router.push({ path: `/${this.stepNow}` });
       }
-      return
+      return;
     },
     // 把資料存入localStorage
     saveStorage() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.formData))
-    }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.formData));
+    },
   },
   computed: {
     // 將運費由字串轉換成數字
     getDeliveryFeeInNum() {
-      this.$emit('get-delivery-fee', Number(this.formData.deliveryFee))
+      this.$emit("get-delivery-fee", Number(this.formData.deliveryFee));
       return Number(this.formData.deliveryFee);
     },
   },
   watch: {
     // 當formData資料變化就存進localStorage中
     formData: {
-      handler: function() {
-        this.saveStorage()
+      handler: function () {
+        this.saveStorage();
       },
-      deep: true
-    }
-  }
+      deep: true,
+    },
+  },
 };
 </script>

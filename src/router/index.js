@@ -9,6 +9,11 @@ const routes = [
   {
     path: '/',
     name: 'root',
+    redirect: '/1'
+  },
+  {
+    path: '/:id',
+    name: 'form',
     component: Main,
   },
   {
